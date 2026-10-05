@@ -5,6 +5,7 @@ package org.glavo.avif.internal.av1.recon;
 import org.glavo.avif.internal.av1.image.PaddedPlane;
 import org.glavo.avif.internal.av1.model.FrameHeader;
 import org.glavo.avif.internal.av1.model.MotionVector;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -217,7 +218,7 @@ final class WarpedMotion {
         /// @param index the matrix index in `[0, 5]`
         /// @return the selected matrix entry
         int matrix(int index) {
-            return matrix[Objects.checkIndex(index, matrix.length)];
+            return matrix[ApiCompat.checkIndex(index, matrix.length)];
         }
 
         /// Returns the normalized horizontal X derivative.

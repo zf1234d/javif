@@ -7,6 +7,7 @@ import org.glavo.avif.internal.av1.model.FrameAssembly;
 import org.glavo.avif.internal.av1.model.FrameHeader;
 import org.glavo.avif.internal.av1.model.InterMotionVector;
 import org.glavo.avif.internal.av1.model.MotionVector;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -161,7 +162,7 @@ final class ReferenceMotionVectorProjection {
     /// @param referenceFrame the current reference in internal LAST..ALTREF order
     /// @return whether the supplied reference has future-frame sign bias
     boolean signBias(int referenceFrame) {
-        return referenceSignBiases[Objects.checkIndex(referenceFrame, referenceSignBiases.length)];
+        return referenceSignBiases[ApiCompat.checkIndex(referenceFrame, referenceSignBiases.length)];
     }
 
     /// Returns the sign bias obtained from one reference-to-current order-hint difference.

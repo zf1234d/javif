@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.model;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -423,7 +424,7 @@ public final class TransformResidualUnit {
     /// @param coefficientIndex the natural raster-order coefficient index
     /// @return the signed transform-domain coefficient at `coefficientIndex`
     public int coefficient(int coefficientIndex) {
-        Objects.checkIndex(coefficientIndex, coefficientCount());
+        ApiCompat.checkIndex(coefficientIndex, coefficientCount());
         if (coefficients.length == 0) {
             return coefficientIndex == 0 ? dcCoefficient : 0;
         }

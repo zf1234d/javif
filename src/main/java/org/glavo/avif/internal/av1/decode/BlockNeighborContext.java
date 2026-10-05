@@ -13,6 +13,7 @@ import org.glavo.avif.internal.av1.model.LumaIntraPredictionMode;
 import org.glavo.avif.internal.av1.model.MotionVector;
 import org.glavo.avif.internal.av1.model.TransformSize;
 import org.glavo.avif.internal.av1.model.TransformUnit;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -2006,9 +2007,9 @@ public final class BlockNeighborContext {
     /// @param index the zero-based palette entry index below the active palette size for `plane`
     /// @return one above-edge palette entry for the supplied plane and coordinate
     public int abovePaletteEntry(int plane, int x4, int index) {
-        int checkedPlane = Objects.checkIndex(plane, abovePaletteEntries.length);
+        int checkedPlane = ApiCompat.checkIndex(plane, abovePaletteEntries.length);
         int activeSize = checkedPlane == 0 ? abovePaletteSize(x4) : aboveChromaPaletteSize(x4);
-        return abovePaletteEntries[checkedPlane][x4][Objects.checkIndex(index, activeSize)];
+        return abovePaletteEntries[checkedPlane][x4][ApiCompat.checkIndex(index, activeSize)];
     }
 
     /// Returns one left-edge palette entry for the supplied plane, Y coordinate, and palette index.
@@ -2018,9 +2019,9 @@ public final class BlockNeighborContext {
     /// @param index the zero-based palette entry index below the active palette size for `plane`
     /// @return one left-edge palette entry for the supplied plane and coordinate
     public int leftPaletteEntry(int plane, int y4, int index) {
-        int checkedPlane = Objects.checkIndex(plane, leftPaletteEntries.length);
+        int checkedPlane = ApiCompat.checkIndex(plane, leftPaletteEntries.length);
         int activeSize = checkedPlane == 0 ? leftPaletteSize(y4) : leftChromaPaletteSize(y4);
-        return leftPaletteEntries[checkedPlane][y4][Objects.checkIndex(index, activeSize)];
+        return leftPaletteEntries[checkedPlane][y4][ApiCompat.checkIndex(index, activeSize)];
     }
 
     /// Returns the above-edge luma mode for the supplied X coordinate in 4x4 units.
@@ -3379,7 +3380,7 @@ public final class BlockNeighborContext {
             boolean referenceMatch,
             boolean haveNewMotionVectorMatch
     ) {
-        return Integer.toUnsignedLong(candidateCount)
+        return ApiCompat.toUnsignedLong(candidateCount)
                 | (referenceMatch ? 1L << 32 : 0L)
                 | (haveNewMotionVectorMatch ? 1L << 33 : 0L);
     }
@@ -4005,7 +4006,7 @@ public final class BlockNeighborContext {
         /// @param index the zero-based candidate index
         /// @return one provisional candidate weight by index
         public int candidateWeight(int index) {
-            return candidate(Objects.checkIndex(index, candidates.length)).weight();
+            return candidate(ApiCompat.checkIndex(index, candidates.length)).weight();
         }
 
         /// Returns one provisional primary motion vector by index.
@@ -4013,7 +4014,7 @@ public final class BlockNeighborContext {
         /// @param index the zero-based candidate index
         /// @return one provisional primary motion vector by index
         public InterMotionVector candidateMotionVector0(int index) {
-            return candidate(Objects.checkIndex(index, candidates.length)).motionVector0();
+            return candidate(ApiCompat.checkIndex(index, candidates.length)).motionVector0();
         }
 
         /// Returns one provisional secondary motion vector by index, or `null`.
@@ -4021,7 +4022,7 @@ public final class BlockNeighborContext {
         /// @param index the zero-based candidate index
         /// @return one provisional secondary motion vector by index, or `null`
         public @Nullable InterMotionVector candidateMotionVector1(int index) {
-            return candidate(Objects.checkIndex(index, candidates.length)).motionVector1();
+            return candidate(ApiCompat.checkIndex(index, candidates.length)).motionVector1();
         }
 
         /// Returns the provisional dynamic-reference-list context for one candidate boundary.
@@ -4031,7 +4032,7 @@ public final class BlockNeighborContext {
         /// @param referenceIndex the zero-based candidate boundary index
         /// @return the zero-based provisional dynamic-reference-list context in `[0, 3)`
         public int drlContext(int referenceIndex) {
-            int index = Objects.checkIndex(referenceIndex + 1, candidates.length) - 1;
+            int index = ApiCompat.checkIndex(referenceIndex + 1, candidates.length) - 1;
             if (candidates[index].weight() >= 640) {
                 return candidates[index + 1].weight() < 640 ? 1 : 0;
             }
@@ -4043,7 +4044,7 @@ public final class BlockNeighborContext {
         /// @param index the zero-based candidate index
         /// @return one stored provisional motion-vector candidate by index
         public ProvisionalMotionVectorCandidate candidate(int index) {
-            return candidates[Objects.checkIndex(index, candidates.length)];
+            return candidates[ApiCompat.checkIndex(index, candidates.length)];
         }
 
         /// Returns the number of de-duplicated spatial motion-vector candidates currently available.
@@ -4061,7 +4062,7 @@ public final class BlockNeighborContext {
         /// @param index the zero-based spatial motion-vector candidate index
         /// @return one de-duplicated spatial motion-vector candidate by index
         public ProvisionalMotionVectorCandidate motionVectorCandidate(int index) {
-            return candidates[Objects.checkIndex(index, candidates.length)];
+            return candidates[ApiCompat.checkIndex(index, candidates.length)];
         }
 
         /// One provisional motion-vector candidate derived from one bounded neighbor source.

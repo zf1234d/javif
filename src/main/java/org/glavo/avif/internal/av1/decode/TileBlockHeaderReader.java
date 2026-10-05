@@ -17,6 +17,7 @@ import org.glavo.avif.internal.av1.model.MotionVector;
 import org.glavo.avif.internal.av1.model.MotionMode;
 import org.glavo.avif.internal.av1.model.SingleInterPredictionMode;
 import org.glavo.avif.internal.av1.model.UvIntraPredictionMode;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -3209,7 +3210,7 @@ public final class TileBlockHeaderReader {
         /// @param index the zero-based slot index
         /// @return the selected delta-lf value
         public int deltaLfValue(int index) {
-            return switch (Objects.checkIndex(index, 4)) {
+            return switch (ApiCompat.checkIndex(index, 4)) {
                 case 0 -> deltaLfValue0;
                 case 1 -> deltaLfValue1;
                 case 2 -> deltaLfValue2;
@@ -3327,7 +3328,7 @@ public final class TileBlockHeaderReader {
         /// @param sampleIndex the raster-order sample index
         /// @return the unpacked palette index
         private static int packedPaletteIndex(byte[] packedIndices, int sampleIndex) {
-            Objects.checkIndex(sampleIndex, packedIndices.length << 1);
+            ApiCompat.checkIndex(sampleIndex, packedIndices.length << 1);
             int packed = packedIndices[sampleIndex >> 1] & 0xFF;
             return (packed >> ((sampleIndex & 1) << 2)) & 0x0F;
         }

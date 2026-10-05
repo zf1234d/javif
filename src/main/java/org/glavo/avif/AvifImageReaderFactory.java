@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Path;
 import java.util.Objects;
 
 /// Creates AVIF image readers with an immutable reusable set of decoding options.
@@ -207,7 +206,7 @@ public final class AvifImageReaderFactory {
     ///
     /// Because the stream is not seekable, indexed access and a container layout that requires
     /// revisiting discarded bytes fail with [AvifErrorCode#SEEKABLE_SOURCE_REQUIRED]. Use
-    /// [#open(Path)], [#open(byte[])], or [#open(ByteBuffer)] when arbitrary access is required.
+    /// [#open(byte[])] or [#open(ByteBuffer)] when arbitrary access is required.
     /// If reading fails, the consumed prefix remains consumed.
     ///
     /// @param source the source input stream
@@ -235,7 +234,7 @@ public final class AvifImageReaderFactory {
     ///
     /// Because the channel is treated as forward-only, indexed access and a container layout that
     /// requires revisiting discarded bytes fail with [AvifErrorCode#SEEKABLE_SOURCE_REQUIRED]. Use
-    /// [#open(Path)], [#open(byte[])], or [#open(ByteBuffer)] when arbitrary access is required.
+    /// [#open(byte[])] or [#open(ByteBuffer)] when arbitrary access is required.
     /// If reading fails, the consumed prefix remains consumed.
     ///
     /// @param source the source byte channel
@@ -252,31 +251,6 @@ public final class AvifImageReaderFactory {
                 ),
                 this
         );
-    }
-
-    /// Opens an AVIF image reader over a file path.
-    ///
-    /// The returned reader owns an open read-only file handle and releases it from
-    /// [AvifImageReader#close()]. The file must not be modified until the reader is closed.
-    ///
-    /// @param source the source file path
-    /// @return a new AVIF image reader
-    /// @throws IOException if the file cannot be read, exceeds the configured limit, or does not
-    ///                     contain a supported AVIF container
-    public AvifImageReader open(Path source) throws IOException {
-        Path checkedSource = Objects.requireNonNull(source, "source");
-        AvifDataSource retainedSource = AvifDataSource.open(checkedSource);
-        try {
-            validateInputSize(retainedSource.limit());
-            return new AvifImageReader(retainedSource, this);
-        } catch (IOException | RuntimeException | Error exception) {
-            try {
-                retainedSource.close();
-            } catch (IOException closeException) {
-                exception.addSuppressed(closeException);
-            }
-            throw exception;
-        }
     }
 
     /// Validates a complete input size against this factory's limit.

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.image;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 import org.jetbrains.annotations.UnmodifiableView;
@@ -141,7 +142,7 @@ public final class PaddedPlane {
     ///
     /// @return a read-only view of the stored unsigned sample values
     public @UnmodifiableView ShortBuffer sampleBuffer() {
-        return samples.slice(0, stride * height);
+        return ApiCompat.slice(samples, 0, stride * height);
     }
 
     /// Returns one unsigned sample value.
@@ -192,7 +193,7 @@ public final class PaddedPlane {
             int length
     ) {
         short[] checkedDestination = Objects.requireNonNull(destination, "destination");
-        Objects.checkFromIndexSize(destinationOffset, length, checkedDestination.length);
+        ApiCompat.checkFromIndexSize(destinationOffset, length, checkedDestination.length);
         if (length == 0) {
             return;
         }

@@ -14,6 +14,7 @@ import org.glavo.avif.internal.av1.model.TransformSize;
 import org.glavo.avif.internal.av1.model.TransformUnit;
 import org.glavo.avif.internal.av1.image.PaddedPlane;
 import org.glavo.avif.internal.av1.image.DecodedSurface;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -1189,7 +1190,7 @@ final class LoopFilterApplier {
         /// @param planeIndex the plane index, `0` for luma, `1` for U, and `2` for V
         /// @return whether the selected plane requires loop filtering
         private boolean isPlaneActive(int planeIndex) {
-            return (activePlaneMask & (1 << Objects.checkIndex(planeIndex, 3))) != 0;
+            return (activePlaneMask & (1 << ApiCompat.checkIndex(planeIndex, 3))) != 0;
         }
 
         /// Verifies that an operation is applied to the surface for which it was prepared.
@@ -1351,7 +1352,7 @@ final class LoopFilterApplier {
         /// @param planeIndex the plane index, `0` for luma, `1` for U, and `2` for V
         /// @return the packed coverage and boundary state
         private int boundaryStateAt(int index, int planeIndex) {
-            return Byte.toUnsignedInt((planeIndex == 0 ? lumaBoundaryStates : chromaBoundaryStates)[index]);
+            return ApiCompat.toUnsignedInt((planeIndex == 0 ? lumaBoundaryStates : chromaBoundaryStates)[index]);
         }
 
         /// Returns the plane-specific transform size at one covered cell.
@@ -1360,7 +1361,7 @@ final class LoopFilterApplier {
         /// @param planeIndex the plane index, `0` for luma, `1` for U, and `2` for V
         /// @return the transform size covering the cell
         private TransformSize transformSizeAt(int index, int planeIndex) {
-            int ordinal = Byte.toUnsignedInt(
+            int ordinal = ApiCompat.toUnsignedInt(
                     (planeIndex == 0 ? lumaTransformSizeOrdinals : chromaTransformSizeOrdinals)[index]
             );
             return TRANSFORM_SIZES[ordinal];
@@ -1373,7 +1374,7 @@ final class LoopFilterApplier {
         /// @param pass the edge pass, `0` for vertical edges and `1` for horizontal edges
         /// @return the effective filter level
         private int filterLevelAt(int index, int planeIndex, int pass) {
-            int state = Short.toUnsignedInt((planeIndex == 0 ? lumaFilterStates : chromaFilterStates)[index]);
+            int state = ApiCompat.toUnsignedInt((planeIndex == 0 ? lumaFilterStates : chromaFilterStates)[index]);
             int levelIndex = planeIndex == 0 ? pass : planeIndex - 1;
             return (state >> (levelIndex * FILTER_STATE_SECOND_LEVEL_SHIFT)) & FILTER_STATE_LEVEL_MASK;
         }
@@ -1384,7 +1385,7 @@ final class LoopFilterApplier {
         /// @param planeIndex the plane index, `0` for luma, `1` for U, and `2` for V
         /// @return whether the block is a skipped inter block
         private boolean isSkippedInterAt(int index, int planeIndex) {
-            int state = Short.toUnsignedInt((planeIndex == 0 ? lumaFilterStates : chromaFilterStates)[index]);
+            int state = ApiCompat.toUnsignedInt((planeIndex == 0 ? lumaFilterStates : chromaFilterStates)[index]);
             return (state & FILTER_STATE_SKIPPED_INTER) != 0;
         }
 

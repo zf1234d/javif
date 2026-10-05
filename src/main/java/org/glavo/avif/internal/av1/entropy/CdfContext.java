@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.entropy;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -1502,7 +1503,7 @@ public final class CdfContext {
     /// @param context the zero-based skip context index
     /// @return the live mutable skip CDF for the supplied context index
     public int[] mutableSkipCdf(int context) {
-        return skipCdfs[Objects.checkIndex(context, skipCdfs.length)];
+        return skipCdfs[ApiCompat.checkIndex(context, skipCdfs.length)];
     }
 
     /// Returns the live mutable skip-mode CDF for the supplied context index.
@@ -1510,7 +1511,7 @@ public final class CdfContext {
     /// @param context the zero-based skip-mode context index
     /// @return the live mutable skip-mode CDF for the supplied context index
     public int[] mutableSkipModeCdf(int context) {
-        return skipModeCdfs[Objects.checkIndex(context, skipModeCdfs.length)];
+        return skipModeCdfs[ApiCompat.checkIndex(context, skipModeCdfs.length)];
     }
 
     /// Returns the live mutable intra/inter decision CDF for the supplied context index.
@@ -1518,7 +1519,7 @@ public final class CdfContext {
     /// @param context the zero-based intra/inter context index
     /// @return the live mutable intra/inter decision CDF for the supplied context index
     public int[] mutableIntraCdf(int context) {
-        return intraCdfs[Objects.checkIndex(context, intraCdfs.length)];
+        return intraCdfs[ApiCompat.checkIndex(context, intraCdfs.length)];
     }
 
     /// Returns the live mutable compound-reference decision CDF for the supplied context index.
@@ -1526,7 +1527,7 @@ public final class CdfContext {
     /// @param context the zero-based compound-reference context index in `[0, 5)`
     /// @return the live mutable compound-reference decision CDF for the supplied context index
     public int[] mutableCompoundReferenceCdf(int context) {
-        return compoundReferenceCdfs[Objects.checkIndex(context, compoundReferenceCdfs.length)];
+        return compoundReferenceCdfs[ApiCompat.checkIndex(context, compoundReferenceCdfs.length)];
     }
 
     /// Returns the live mutable compound-direction decision CDF for the supplied context index.
@@ -1534,7 +1535,7 @@ public final class CdfContext {
     /// @param context the zero-based compound-direction context index in `[0, 5)`
     /// @return the live mutable compound-direction decision CDF for the supplied context index
     public int[] mutableCompoundDirectionCdf(int context) {
-        return compoundDirectionCdfs[Objects.checkIndex(context, compoundDirectionCdfs.length)];
+        return compoundDirectionCdfs[ApiCompat.checkIndex(context, compoundDirectionCdfs.length)];
     }
 
     /// Returns the live mutable single-reference selection CDF for the supplied table and context.
@@ -1543,8 +1544,8 @@ public final class CdfContext {
     /// @param context the zero-based context index in `[0, 3)`
     /// @return the live mutable single-reference selection CDF for the supplied inputs
     public int[] mutableSingleReferenceCdf(int tableIndex, int context) {
-        int[][] table = singleReferenceCdfs[Objects.checkIndex(tableIndex, singleReferenceCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = singleReferenceCdfs[ApiCompat.checkIndex(tableIndex, singleReferenceCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable compound forward-reference selection CDF for the supplied table and context.
@@ -1553,8 +1554,8 @@ public final class CdfContext {
     /// @param context the zero-based context index in `[0, 3)`
     /// @return the live mutable compound forward-reference selection CDF for the supplied inputs
     public int[] mutableCompoundForwardReferenceCdf(int tableIndex, int context) {
-        int[][] table = compoundForwardReferenceCdfs[Objects.checkIndex(tableIndex, compoundForwardReferenceCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = compoundForwardReferenceCdfs[ApiCompat.checkIndex(tableIndex, compoundForwardReferenceCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable compound backward-reference selection CDF for the supplied table and context.
@@ -1563,8 +1564,8 @@ public final class CdfContext {
     /// @param context the zero-based context index in `[0, 3)`
     /// @return the live mutable compound backward-reference selection CDF for the supplied inputs
     public int[] mutableCompoundBackwardReferenceCdf(int tableIndex, int context) {
-        int[][] table = compoundBackwardReferenceCdfs[Objects.checkIndex(tableIndex, compoundBackwardReferenceCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = compoundBackwardReferenceCdfs[ApiCompat.checkIndex(tableIndex, compoundBackwardReferenceCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable compound unidirectional-reference selection CDF for the supplied table and context.
@@ -1573,8 +1574,8 @@ public final class CdfContext {
     /// @param context the zero-based context index in `[0, 3)`
     /// @return the live mutable compound unidirectional-reference selection CDF for the supplied inputs
     public int[] mutableCompoundUnidirectionalReferenceCdf(int tableIndex, int context) {
-        int[][] table = compoundUnidirectionalReferenceCdfs[Objects.checkIndex(tableIndex, compoundUnidirectionalReferenceCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = compoundUnidirectionalReferenceCdfs[ApiCompat.checkIndex(tableIndex, compoundUnidirectionalReferenceCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable single-reference new-motion-vector CDF for the supplied context index.
@@ -1582,7 +1583,7 @@ public final class CdfContext {
     /// @param context the zero-based single-reference new-motion-vector context index in `[0, 6)`
     /// @return the live mutable single-reference new-motion-vector CDF for the supplied context index
     public int[] mutableSingleInterNewMvCdf(int context) {
-        return singleInterNewMvCdfs[Objects.checkIndex(context, singleInterNewMvCdfs.length)];
+        return singleInterNewMvCdfs[ApiCompat.checkIndex(context, singleInterNewMvCdfs.length)];
     }
 
     /// Returns the live mutable single-reference global-motion CDF for the supplied context index.
@@ -1590,7 +1591,7 @@ public final class CdfContext {
     /// @param context the zero-based single-reference global-motion context index in `[0, 2)`
     /// @return the live mutable single-reference global-motion CDF for the supplied context index
     public int[] mutableSingleInterGlobalMvCdf(int context) {
-        return singleInterGlobalMvCdfs[Objects.checkIndex(context, singleInterGlobalMvCdfs.length)];
+        return singleInterGlobalMvCdfs[ApiCompat.checkIndex(context, singleInterGlobalMvCdfs.length)];
     }
 
     /// Returns the live mutable single-reference reference-motion-vector CDF for the supplied context index.
@@ -1598,7 +1599,7 @@ public final class CdfContext {
     /// @param context the zero-based single-reference reference-motion-vector context index in `[0, 6)`
     /// @return the live mutable single-reference reference-motion-vector CDF for the supplied context index
     public int[] mutableSingleInterReferenceMvCdf(int context) {
-        return singleInterReferenceMvCdfs[Objects.checkIndex(context, singleInterReferenceMvCdfs.length)];
+        return singleInterReferenceMvCdfs[ApiCompat.checkIndex(context, singleInterReferenceMvCdfs.length)];
     }
 
     /// Returns the live mutable dynamic-reference-list selection CDF for the supplied context index.
@@ -1606,7 +1607,7 @@ public final class CdfContext {
     /// @param context the zero-based dynamic-reference-list context index in `[0, 3)`
     /// @return the live mutable dynamic-reference-list selection CDF for the supplied context index
     public int[] mutableDrlCdf(int context) {
-        return drlCdfs[Objects.checkIndex(context, drlCdfs.length)];
+        return drlCdfs[ApiCompat.checkIndex(context, drlCdfs.length)];
     }
 
     /// Returns the live mutable compound inter-mode CDF for the supplied context index.
@@ -1614,7 +1615,7 @@ public final class CdfContext {
     /// @param context the zero-based compound inter-mode context index in `[0, 8)`
     /// @return the live mutable compound inter-mode CDF for the supplied context index
     public int[] mutableCompoundInterModeCdf(int context) {
-        return compoundInterModeCdfs[Objects.checkIndex(context, compoundInterModeCdfs.length)];
+        return compoundInterModeCdfs[ApiCompat.checkIndex(context, compoundInterModeCdfs.length)];
     }
 
     /// Returns the live mutable motion-mode CDF for the supplied block-size context index.
@@ -1622,7 +1623,7 @@ public final class CdfContext {
     /// @param context the zero-based block-size context index in `[0, 22)`
     /// @return the live mutable motion-mode CDF for the supplied context index
     public int[] mutableMotionModeCdf(int context) {
-        return motionModeCdfs[Objects.checkIndex(context, motionModeCdfs.length)];
+        return motionModeCdfs[ApiCompat.checkIndex(context, motionModeCdfs.length)];
     }
 
     /// Returns the live mutable OBMC selection CDF for the supplied block-size context index.
@@ -1630,7 +1631,7 @@ public final class CdfContext {
     /// @param context the zero-based block-size context index in `[0, 22)`
     /// @return the live mutable OBMC selection CDF for the supplied context index
     public int[] mutableObmcCdf(int context) {
-        return obmcCdfs[Objects.checkIndex(context, obmcCdfs.length)];
+        return obmcCdfs[ApiCompat.checkIndex(context, obmcCdfs.length)];
     }
 
     /// Returns the live mutable joint-compound selection CDF for the supplied context index.
@@ -1638,7 +1639,7 @@ public final class CdfContext {
     /// @param context the zero-based joint-compound context index in `[0, 6)`
     /// @return the live mutable joint-compound selection CDF for the supplied context index
     public int[] mutableJointCompoundCdf(int context) {
-        return jointCompoundCdfs[Objects.checkIndex(context, jointCompoundCdfs.length)];
+        return jointCompoundCdfs[ApiCompat.checkIndex(context, jointCompoundCdfs.length)];
     }
 
     /// Returns the live mutable masked-compound selection CDF for the supplied context index.
@@ -1646,7 +1647,7 @@ public final class CdfContext {
     /// @param context the zero-based masked-compound context index in `[0, 6)`
     /// @return the live mutable masked-compound selection CDF for the supplied context index
     public int[] mutableMaskCompoundCdf(int context) {
-        return maskCompoundCdfs[Objects.checkIndex(context, maskCompoundCdfs.length)];
+        return maskCompoundCdfs[ApiCompat.checkIndex(context, maskCompoundCdfs.length)];
     }
 
     /// Returns the live mutable wedge-vs-segment compound CDF for the supplied context index.
@@ -1654,7 +1655,7 @@ public final class CdfContext {
     /// @param context the zero-based wedge context index in `[0, 9)`
     /// @return the live mutable wedge-vs-segment compound CDF for the supplied context index
     public int[] mutableWedgeCompoundCdf(int context) {
-        return wedgeCompoundCdfs[Objects.checkIndex(context, wedgeCompoundCdfs.length)];
+        return wedgeCompoundCdfs[ApiCompat.checkIndex(context, wedgeCompoundCdfs.length)];
     }
 
     /// Returns the live mutable inter-intra enable CDF for the supplied context index.
@@ -1662,7 +1663,7 @@ public final class CdfContext {
     /// @param context the zero-based inter-intra context index in `[0, 4)`
     /// @return the live mutable inter-intra enable CDF for the supplied context index
     public int[] mutableInterIntraCdf(int context) {
-        return interIntraCdfs[Objects.checkIndex(context, interIntraCdfs.length)];
+        return interIntraCdfs[ApiCompat.checkIndex(context, interIntraCdfs.length)];
     }
 
     /// Returns the live mutable inter-intra prediction-mode CDF for the supplied context index.
@@ -1670,7 +1671,7 @@ public final class CdfContext {
     /// @param context the zero-based inter-intra mode context index in `[0, 4)`
     /// @return the live mutable inter-intra prediction-mode CDF for the supplied context index
     public int[] mutableInterIntraModeCdf(int context) {
-        return interIntraModeCdfs[Objects.checkIndex(context, interIntraModeCdfs.length)];
+        return interIntraModeCdfs[ApiCompat.checkIndex(context, interIntraModeCdfs.length)];
     }
 
     /// Returns the live mutable inter-intra wedge enable CDF for the supplied context index.
@@ -1678,7 +1679,7 @@ public final class CdfContext {
     /// @param context the zero-based wedge context index in `[0, 7)`
     /// @return the live mutable inter-intra wedge enable CDF for the supplied context index
     public int[] mutableInterIntraWedgeCdf(int context) {
-        return interIntraWedgeCdfs[Objects.checkIndex(context, interIntraWedgeCdfs.length)];
+        return interIntraWedgeCdfs[ApiCompat.checkIndex(context, interIntraWedgeCdfs.length)];
     }
 
     /// Returns the live mutable wedge-index CDF for the supplied context index.
@@ -1686,7 +1687,7 @@ public final class CdfContext {
     /// @param context the zero-based wedge context index in `[0, 9)`
     /// @return the live mutable wedge-index CDF for the supplied context index
     public int[] mutableWedgeIndexCdf(int context) {
-        return wedgeIndexCdfs[Objects.checkIndex(context, wedgeIndexCdfs.length)];
+        return wedgeIndexCdfs[ApiCompat.checkIndex(context, wedgeIndexCdfs.length)];
     }
 
     /// Returns the live mutable switchable interpolation-filter CDF for the supplied direction and context.
@@ -1698,8 +1699,8 @@ public final class CdfContext {
     /// @param context the zero-based switchable interpolation-filter context index in `[0, 8)`
     /// @return the live mutable switchable interpolation-filter CDF for the supplied direction and context
     public int[] mutableInterpolationFilterCdf(int direction, int context) {
-        int[][] directionCdfs = interpolationFilterCdfs[Objects.checkIndex(direction, interpolationFilterCdfs.length)];
-        return directionCdfs[Objects.checkIndex(context, directionCdfs.length)];
+        int[][] directionCdfs = interpolationFilterCdfs[ApiCompat.checkIndex(direction, interpolationFilterCdfs.length)];
+        return directionCdfs[ApiCompat.checkIndex(context, directionCdfs.length)];
     }
 
     /// Returns the live mutable transform-size CDF for the supplied max-size table and context.
@@ -1708,8 +1709,8 @@ public final class CdfContext {
     /// @param context the zero-based transform-size context index in `[0, 3)`
     /// @return the live mutable transform-size CDF for the supplied inputs
     public int[] mutableTransformSizeCdf(int tableIndex, int context) {
-        int[][] table = transformSizeCdfs[Objects.checkIndex(tableIndex, transformSizeCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = transformSizeCdfs[ApiCompat.checkIndex(tableIndex, transformSizeCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable inter transform-partition CDF for the supplied table and context.
@@ -1720,8 +1721,8 @@ public final class CdfContext {
     /// @param context the zero-based context index in `[0, 3)`
     /// @return the live mutable inter transform-partition CDF for the supplied inputs
     public int[] mutableTransformPartitionCdf(int tableIndex, int context) {
-        int baseIndex = Objects.checkIndex(tableIndex, 7) * 3;
-        return transformPartitionCdfs[baseIndex + Objects.checkIndex(context, 3)];
+        int baseIndex = ApiCompat.checkIndex(tableIndex, 7) * 3;
+        return transformPartitionCdfs[baseIndex + ApiCompat.checkIndex(context, 3)];
     }
 
     /// Returns the live mutable inter transform-type CDF for transform set 1.
@@ -1729,7 +1730,7 @@ public final class CdfContext {
     /// @param minSquareLevel the smallest square transform level touched by the transform in `[0, 2)`
     /// @return the live mutable inter transform-type CDF for transform set 1
     public int[] mutableInterTransformTypeSet1Cdf(int minSquareLevel) {
-        return interTransformTypeSet1Cdfs[Objects.checkIndex(minSquareLevel, interTransformTypeSet1Cdfs.length)];
+        return interTransformTypeSet1Cdfs[ApiCompat.checkIndex(minSquareLevel, interTransformTypeSet1Cdfs.length)];
     }
 
     /// Returns the live mutable inter transform-type CDF for transform set 2.
@@ -1744,7 +1745,7 @@ public final class CdfContext {
     /// @param minSquareLevel the smallest square transform level touched by the transform in `[0, 4)`
     /// @return the live mutable inter transform-type CDF for the reduced/large transform set
     public int[] mutableInterTransformTypeSet3Cdf(int minSquareLevel) {
-        return interTransformTypeSet3Cdfs[Objects.checkIndex(minSquareLevel, interTransformTypeSet3Cdfs.length)];
+        return interTransformTypeSet3Cdfs[ApiCompat.checkIndex(minSquareLevel, interTransformTypeSet3Cdfs.length)];
     }
 
     /// Returns the live mutable intra transform-type CDF for transform set 1.
@@ -1753,8 +1754,8 @@ public final class CdfContext {
     /// @param yMode the zero-based luma intra prediction mode index in `[0, 13)`
     /// @return the live mutable intra transform-type CDF for transform set 1
     public int[] mutableIntraTransformTypeSet1Cdf(int minSquareLevel, int yMode) {
-        int[][] table = intraTransformTypeSet1Cdfs[Objects.checkIndex(minSquareLevel, intraTransformTypeSet1Cdfs.length)];
-        return table[Objects.checkIndex(yMode, table.length)];
+        int[][] table = intraTransformTypeSet1Cdfs[ApiCompat.checkIndex(minSquareLevel, intraTransformTypeSet1Cdfs.length)];
+        return table[ApiCompat.checkIndex(yMode, table.length)];
     }
 
     /// Returns the live mutable intra transform-type CDF for transform set 2.
@@ -1763,8 +1764,8 @@ public final class CdfContext {
     /// @param yMode the zero-based luma intra prediction mode index in `[0, 13)`
     /// @return the live mutable intra transform-type CDF for transform set 2
     public int[] mutableIntraTransformTypeSet2Cdf(int minSquareLevel, int yMode) {
-        int[][] table = intraTransformTypeSet2Cdfs[Objects.checkIndex(minSquareLevel, intraTransformTypeSet2Cdfs.length)];
-        return table[Objects.checkIndex(yMode, table.length)];
+        int[][] table = intraTransformTypeSet2Cdfs[ApiCompat.checkIndex(minSquareLevel, intraTransformTypeSet2Cdfs.length)];
+        return table[ApiCompat.checkIndex(yMode, table.length)];
     }
 
     /// Returns the live mutable coefficient-skip CDF for the supplied transform-context group and context index.
@@ -1773,8 +1774,8 @@ public final class CdfContext {
     /// @param context the zero-based coefficient-skip context index in `[0, 13)`
     /// @return the live mutable coefficient-skip CDF for the supplied inputs
     public int[] mutableCoefficientSkipCdf(int transformContextIndex, int context) {
-        int[][] table = coefficientSkipCdfs[Objects.checkIndex(transformContextIndex, coefficientSkipCdfs.length)];
-        return table[Objects.checkIndex(context, table.length)];
+        int[][] table = coefficientSkipCdfs[ApiCompat.checkIndex(transformContextIndex, coefficientSkipCdfs.length)];
+        return table[ApiCompat.checkIndex(context, table.length)];
     }
 
     /// Returns the live mutable end-of-block prefix CDF for the supplied transform-area context.
@@ -1784,7 +1785,7 @@ public final class CdfContext {
     /// @param oneDimensional whether the active transform type belongs to a 1D transform class
     /// @return the live mutable end-of-block prefix CDF for the supplied inputs
     public int[] mutableEndOfBlockPrefixCdf(int tx2dSizeContext, boolean chroma, boolean oneDimensional) {
-        int[][][] areaTable = endOfBlockPrefixCdfs[Objects.checkIndex(tx2dSizeContext, endOfBlockPrefixCdfs.length)];
+        int[][][] areaTable = endOfBlockPrefixCdfs[ApiCompat.checkIndex(tx2dSizeContext, endOfBlockPrefixCdfs.length)];
         int[][] chromaTable = areaTable[chroma ? 1 : 0];
         return chromaTable[oneDimensional ? 1 : 0];
     }
@@ -1796,9 +1797,9 @@ public final class CdfContext {
     /// @param context the zero-based end-of-block base-token context in `[0, 4)`
     /// @return the live mutable end-of-block base-token CDF for the supplied inputs
     public int[] mutableEndOfBlockBaseTokenCdf(int transformContextIndex, boolean chroma, int context) {
-        int[][][] transformTable = endOfBlockBaseTokenCdfs[Objects.checkIndex(transformContextIndex, endOfBlockBaseTokenCdfs.length)];
+        int[][][] transformTable = endOfBlockBaseTokenCdfs[ApiCompat.checkIndex(transformContextIndex, endOfBlockBaseTokenCdfs.length)];
         int[][] chromaTable = transformTable[chroma ? 1 : 0];
-        return chromaTable[Objects.checkIndex(context, chromaTable.length)];
+        return chromaTable[ApiCompat.checkIndex(context, chromaTable.length)];
     }
 
     /// Returns the live mutable end-of-block high-bit CDF for the supplied transform context.
@@ -1808,9 +1809,9 @@ public final class CdfContext {
     /// @param context the zero-based end-of-block high-bit context index in `[0, 9)`
     /// @return the live mutable end-of-block high-bit CDF for the supplied inputs
     public int[] mutableEndOfBlockHighBitCdf(int transformContextIndex, boolean chroma, int context) {
-        int[][][] transformTable = endOfBlockHighBitCdfs[Objects.checkIndex(transformContextIndex, endOfBlockHighBitCdfs.length)];
+        int[][][] transformTable = endOfBlockHighBitCdfs[ApiCompat.checkIndex(transformContextIndex, endOfBlockHighBitCdfs.length)];
         int[][] chromaTable = transformTable[chroma ? 1 : 0];
-        return chromaTable[Objects.checkIndex(context, chromaTable.length)];
+        return chromaTable[ApiCompat.checkIndex(context, chromaTable.length)];
     }
 
     /// Returns the live mutable coefficient base-token CDF for the supplied transform context and base-token context.
@@ -1820,9 +1821,9 @@ public final class CdfContext {
     /// @param context the zero-based base-token context index
     /// @return the live mutable coefficient base-token CDF for the supplied inputs
     public int[] mutableBaseTokenCdf(int transformContextIndex, boolean chroma, int context) {
-        int[][][] transformTable = baseTokenCdfs[Objects.checkIndex(transformContextIndex, baseTokenCdfs.length)];
+        int[][][] transformTable = baseTokenCdfs[ApiCompat.checkIndex(transformContextIndex, baseTokenCdfs.length)];
         int[][] planeTable = transformTable[chroma ? 1 : 0];
-        return planeTable[Objects.checkIndex(context, planeTable.length)];
+        return planeTable[ApiCompat.checkIndex(context, planeTable.length)];
     }
 
     /// Returns the live mutable DC-sign CDF for the supplied plane and context.
@@ -1832,7 +1833,7 @@ public final class CdfContext {
     /// @return the live mutable DC-sign CDF for the supplied plane and context
     public int[] mutableDcSignCdf(boolean chroma, int context) {
         int[][] planeTable = dcSignCdfs[chroma ? 1 : 0];
-        return planeTable[Objects.checkIndex(context, planeTable.length)];
+        return planeTable[ApiCompat.checkIndex(context, planeTable.length)];
     }
 
     /// Returns the live mutable DC high-token CDF for the supplied transform context and plane.
@@ -1851,10 +1852,10 @@ public final class CdfContext {
     /// @param context the zero-based `br_tok` context index
     /// @return the live mutable coefficient high-token CDF for the supplied inputs
     public int[] mutableHighTokenCdf(int transformContextIndex, boolean chroma, int context) {
-        int checkedTransformContextIndex = Objects.checkIndex(transformContextIndex, baseTokenCdfs.length);
+        int checkedTransformContextIndex = ApiCompat.checkIndex(transformContextIndex, baseTokenCdfs.length);
         int[][][] transformTable = highTokenCdfs[Math.min(checkedTransformContextIndex, highTokenCdfs.length - 1)];
         int[][] planeTable = transformTable[chroma ? 1 : 0];
-        return planeTable[Objects.checkIndex(context, planeTable.length)];
+        return planeTable[ApiCompat.checkIndex(context, planeTable.length)];
     }
 
     /// Returns the live mutable delta-q CDF.
@@ -1869,7 +1870,7 @@ public final class CdfContext {
     /// @param context the zero-based delta-lf context index in `[0, 5)`
     /// @return the live mutable delta-lf CDF for the supplied context index
     public int[] mutableDeltaLfCdf(int context) {
-        return deltaLfCdfs[Objects.checkIndex(context, deltaLfCdfs.length)];
+        return deltaLfCdfs[ApiCompat.checkIndex(context, deltaLfCdfs.length)];
     }
 
     /// Returns the live mutable motion-vector joint CDF.
@@ -1884,7 +1885,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable motion-vector class CDF for the supplied component
     public int[] mutableMotionVectorClassCdf(int component) {
-        return motionVectorClassCdfs[Objects.checkIndex(component, motionVectorClassCdfs.length)];
+        return motionVectorClassCdfs[ApiCompat.checkIndex(component, motionVectorClassCdfs.length)];
     }
 
     /// Returns the live mutable motion-vector sign CDF for the supplied component.
@@ -1892,7 +1893,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable motion-vector sign CDF for the supplied component
     public int[] mutableMotionVectorSignCdf(int component) {
-        return motionVectorSignCdfs[Objects.checkIndex(component, motionVectorSignCdfs.length)];
+        return motionVectorSignCdfs[ApiCompat.checkIndex(component, motionVectorSignCdfs.length)];
     }
 
     /// Returns the live mutable class-0 motion-vector magnitude CDF for the supplied component.
@@ -1900,7 +1901,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable class-0 motion-vector magnitude CDF for the supplied component
     public int[] mutableMotionVectorClass0Cdf(int component) {
-        return motionVectorClass0Cdfs[Objects.checkIndex(component, motionVectorClass0Cdfs.length)];
+        return motionVectorClass0Cdfs[ApiCompat.checkIndex(component, motionVectorClass0Cdfs.length)];
     }
 
     /// Returns the live mutable class-0 fractional motion-vector CDF for the supplied component and integer bit.
@@ -1909,8 +1910,8 @@ public final class CdfContext {
     /// @param integerBit the decoded class-0 integer bit in `[0, 2)`
     /// @return the live mutable class-0 fractional motion-vector CDF for the supplied inputs
     public int[] mutableMotionVectorClass0FpCdf(int component, int integerBit) {
-        int[][] tables = motionVectorClass0FpCdfs[Objects.checkIndex(component, motionVectorClass0FpCdfs.length)];
-        return tables[Objects.checkIndex(integerBit, tables.length)];
+        int[][] tables = motionVectorClass0FpCdfs[ApiCompat.checkIndex(component, motionVectorClass0FpCdfs.length)];
+        return tables[ApiCompat.checkIndex(integerBit, tables.length)];
     }
 
     /// Returns the live mutable class-0 high-precision motion-vector CDF for the supplied component.
@@ -1918,7 +1919,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable class-0 high-precision motion-vector CDF for the supplied component
     public int[] mutableMotionVectorClass0HpCdf(int component) {
-        return motionVectorClass0HpCdfs[Objects.checkIndex(component, motionVectorClass0HpCdfs.length)];
+        return motionVectorClass0HpCdfs[ApiCompat.checkIndex(component, motionVectorClass0HpCdfs.length)];
     }
 
     /// Returns the live mutable non-class-0 motion-vector bit CDF for the supplied component and bit index.
@@ -1927,8 +1928,8 @@ public final class CdfContext {
     /// @param bitIndex the zero-based motion-vector class bit index in `[0, 10)`
     /// @return the live mutable non-class-0 motion-vector bit CDF for the supplied inputs
     public int[] mutableMotionVectorClassNCdf(int component, int bitIndex) {
-        int[][] tables = motionVectorClassNCdfs[Objects.checkIndex(component, motionVectorClassNCdfs.length)];
-        return tables[Objects.checkIndex(bitIndex, tables.length)];
+        int[][] tables = motionVectorClassNCdfs[ApiCompat.checkIndex(component, motionVectorClassNCdfs.length)];
+        return tables[ApiCompat.checkIndex(bitIndex, tables.length)];
     }
 
     /// Returns the live mutable non-class-0 fractional motion-vector CDF for the supplied component.
@@ -1936,7 +1937,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable non-class-0 fractional motion-vector CDF for the supplied component
     public int[] mutableMotionVectorClassNFpCdf(int component) {
-        return motionVectorClassNFpCdfs[Objects.checkIndex(component, motionVectorClassNFpCdfs.length)];
+        return motionVectorClassNFpCdfs[ApiCompat.checkIndex(component, motionVectorClassNFpCdfs.length)];
     }
 
     /// Returns the live mutable non-class-0 high-precision motion-vector CDF for the supplied component.
@@ -1944,7 +1945,7 @@ public final class CdfContext {
     /// @param component the zero-based motion-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable non-class-0 high-precision motion-vector CDF for the supplied component
     public int[] mutableMotionVectorClassNHpCdf(int component) {
-        return motionVectorClassNHpCdfs[Objects.checkIndex(component, motionVectorClassNHpCdfs.length)];
+        return motionVectorClassNHpCdfs[ApiCompat.checkIndex(component, motionVectorClassNHpCdfs.length)];
     }
 
     /// Returns the live mutable intrabc displacement-vector joint CDF.
@@ -1959,7 +1960,7 @@ public final class CdfContext {
     /// @param component the zero-based displacement-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable intrabc displacement-vector class CDF for the supplied component
     public int[] mutableIntrabcMotionVectorClassCdf(int component) {
-        return intrabcMotionVectorClassCdfs[Objects.checkIndex(component, intrabcMotionVectorClassCdfs.length)];
+        return intrabcMotionVectorClassCdfs[ApiCompat.checkIndex(component, intrabcMotionVectorClassCdfs.length)];
     }
 
     /// Returns the live mutable intrabc displacement-vector sign CDF for the supplied component.
@@ -1967,7 +1968,7 @@ public final class CdfContext {
     /// @param component the zero-based displacement-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable intrabc displacement-vector sign CDF for the supplied component
     public int[] mutableIntrabcMotionVectorSignCdf(int component) {
-        return intrabcMotionVectorSignCdfs[Objects.checkIndex(component, intrabcMotionVectorSignCdfs.length)];
+        return intrabcMotionVectorSignCdfs[ApiCompat.checkIndex(component, intrabcMotionVectorSignCdfs.length)];
     }
 
     /// Returns the live mutable intrabc class-0 displacement-vector magnitude CDF for the supplied component.
@@ -1975,7 +1976,7 @@ public final class CdfContext {
     /// @param component the zero-based displacement-vector component index, where `0` is vertical and `1` is horizontal
     /// @return the live mutable intrabc class-0 displacement-vector magnitude CDF for the supplied component
     public int[] mutableIntrabcMotionVectorClass0Cdf(int component) {
-        return intrabcMotionVectorClass0Cdfs[Objects.checkIndex(component, intrabcMotionVectorClass0Cdfs.length)];
+        return intrabcMotionVectorClass0Cdfs[ApiCompat.checkIndex(component, intrabcMotionVectorClass0Cdfs.length)];
     }
 
     /// Returns the live mutable intrabc class-0 fractional displacement-vector CDF.
@@ -1985,9 +1986,9 @@ public final class CdfContext {
     /// @return the live mutable intrabc class-0 fractional displacement-vector CDF for the supplied inputs
     public int[] mutableIntrabcMotionVectorClass0FpCdf(int component, int integerBit) {
         int[][] tables = intrabcMotionVectorClass0FpCdfs[
-                Objects.checkIndex(component, intrabcMotionVectorClass0FpCdfs.length)
+                ApiCompat.checkIndex(component, intrabcMotionVectorClass0FpCdfs.length)
                 ];
-        return tables[Objects.checkIndex(integerBit, tables.length)];
+        return tables[ApiCompat.checkIndex(integerBit, tables.length)];
     }
 
     /// Returns the live mutable intrabc class-0 high-precision displacement-vector CDF.
@@ -1996,7 +1997,7 @@ public final class CdfContext {
     /// @return the live mutable intrabc class-0 high-precision displacement-vector CDF for the supplied component
     public int[] mutableIntrabcMotionVectorClass0HpCdf(int component) {
         return intrabcMotionVectorClass0HpCdfs[
-                Objects.checkIndex(component, intrabcMotionVectorClass0HpCdfs.length)
+                ApiCompat.checkIndex(component, intrabcMotionVectorClass0HpCdfs.length)
                 ];
     }
 
@@ -2007,9 +2008,9 @@ public final class CdfContext {
     /// @return the live mutable intrabc non-class-0 displacement-vector bit CDF for the supplied inputs
     public int[] mutableIntrabcMotionVectorClassNCdf(int component, int bitIndex) {
         int[][] tables = intrabcMotionVectorClassNCdfs[
-                Objects.checkIndex(component, intrabcMotionVectorClassNCdfs.length)
+                ApiCompat.checkIndex(component, intrabcMotionVectorClassNCdfs.length)
                 ];
-        return tables[Objects.checkIndex(bitIndex, tables.length)];
+        return tables[ApiCompat.checkIndex(bitIndex, tables.length)];
     }
 
     /// Returns the live mutable intrabc non-class-0 fractional displacement-vector CDF.
@@ -2018,7 +2019,7 @@ public final class CdfContext {
     /// @return the live mutable intrabc non-class-0 fractional displacement-vector CDF for the supplied component
     public int[] mutableIntrabcMotionVectorClassNFpCdf(int component) {
         return intrabcMotionVectorClassNFpCdfs[
-                Objects.checkIndex(component, intrabcMotionVectorClassNFpCdfs.length)
+                ApiCompat.checkIndex(component, intrabcMotionVectorClassNFpCdfs.length)
                 ];
     }
 
@@ -2028,7 +2029,7 @@ public final class CdfContext {
     /// @return the live mutable intrabc non-class-0 high-precision displacement-vector CDF for the supplied component
     public int[] mutableIntrabcMotionVectorClassNHpCdf(int component) {
         return intrabcMotionVectorClassNHpCdfs[
-                Objects.checkIndex(component, intrabcMotionVectorClassNHpCdfs.length)
+                ApiCompat.checkIndex(component, intrabcMotionVectorClassNHpCdfs.length)
                 ];
     }
 
@@ -2065,7 +2066,7 @@ public final class CdfContext {
     /// @param context the zero-based luma intra-mode context index
     /// @return the live mutable luma intra-mode CDF for the supplied context index
     public int[] mutableYModeCdf(int context) {
-        return yModeCdfs[Objects.checkIndex(context, yModeCdfs.length)];
+        return yModeCdfs[ApiCompat.checkIndex(context, yModeCdfs.length)];
     }
 
     /// Returns the live mutable `use_filter_intra` CDF for the supplied block-size index.
@@ -2073,7 +2074,7 @@ public final class CdfContext {
     /// @param sizeIndex the zero-based block-size index in `dav1d` `N_BS_SIZES` order
     /// @return the live mutable `use_filter_intra` CDF for the supplied block-size index
     public int[] mutableUseFilterIntraCdf(int sizeIndex) {
-        return useFilterIntraCdfs[Objects.checkIndex(sizeIndex, useFilterIntraCdfs.length)];
+        return useFilterIntraCdfs[ApiCompat.checkIndex(sizeIndex, useFilterIntraCdfs.length)];
     }
 
     /// Returns the live mutable filter-intra-mode CDF.
@@ -2089,8 +2090,8 @@ public final class CdfContext {
     /// @param leftMode the coarsened left-neighbor mode class
     /// @return the live mutable key-frame luma intra-mode CDF
     public int[] mutableKeyFrameYModeCdf(int aboveMode, int leftMode) {
-        int[][] row = keyFrameYModeCdfs[Objects.checkIndex(aboveMode, keyFrameYModeCdfs.length)];
-        return row[Objects.checkIndex(leftMode, row.length)];
+        int[][] row = keyFrameYModeCdfs[ApiCompat.checkIndex(aboveMode, keyFrameYModeCdfs.length)];
+        return row[ApiCompat.checkIndex(leftMode, row.length)];
     }
 
     /// Returns the live mutable chroma intra-mode CDF for the supplied Y-mode context.
@@ -2100,7 +2101,7 @@ public final class CdfContext {
     /// @return the live mutable chroma intra-mode CDF for the supplied Y-mode context
     public int[] mutableUvModeCdf(boolean cflAllowed, int yMode) {
         int[][] table = uvModeCdfs[cflAllowed ? 1 : 0];
-        return table[Objects.checkIndex(yMode, table.length)];
+        return table[ApiCompat.checkIndex(yMode, table.length)];
     }
 
     /// Returns the live mutable partition CDF for the supplied block level and context index.
@@ -2109,8 +2110,8 @@ public final class CdfContext {
     /// @param context the zero-based partition context index
     /// @return the live mutable partition CDF for the supplied block level and context index
     public int[] mutablePartitionCdf(int blockLevel, int context) {
-        int[][] level = partitionCdfs[Objects.checkIndex(blockLevel, partitionCdfs.length)];
-        return level[Objects.checkIndex(context, level.length)];
+        int[][] level = partitionCdfs[ApiCompat.checkIndex(blockLevel, partitionCdfs.length)];
+        return level[ApiCompat.checkIndex(context, level.length)];
     }
 
     /// Returns the live mutable luma palette-use CDF for the supplied size and palette contexts.
@@ -2119,8 +2120,8 @@ public final class CdfContext {
     /// @param paletteContext the zero-based above/left palette context in `[0, 3)`
     /// @return the live mutable luma palette-use CDF for the supplied contexts
     public int[] mutableLumaPaletteCdf(int sizeContext, int paletteContext) {
-        int[][] level = lumaPaletteCdfs[Objects.checkIndex(sizeContext, lumaPaletteCdfs.length)];
-        return level[Objects.checkIndex(paletteContext, level.length)];
+        int[][] level = lumaPaletteCdfs[ApiCompat.checkIndex(sizeContext, lumaPaletteCdfs.length)];
+        return level[ApiCompat.checkIndex(paletteContext, level.length)];
     }
 
     /// Returns the live mutable palette-size CDF for the supplied plane and size context.
@@ -2129,8 +2130,8 @@ public final class CdfContext {
     /// @param sizeContext the zero-based palette size context in `[0, 7)`
     /// @return the live mutable palette-size CDF for the supplied plane and size context
     public int[] mutablePaletteSizeCdf(int plane, int sizeContext) {
-        int[][] table = paletteSizeCdfs[Objects.checkIndex(plane, paletteSizeCdfs.length)];
-        return table[Objects.checkIndex(sizeContext, table.length)];
+        int[][] table = paletteSizeCdfs[ApiCompat.checkIndex(plane, paletteSizeCdfs.length)];
+        return table[ApiCompat.checkIndex(sizeContext, table.length)];
     }
 
     /// Returns the live mutable chroma palette-use CDF for the supplied context index.
@@ -2138,7 +2139,7 @@ public final class CdfContext {
     /// @param paletteContext the zero-based chroma palette context in `[0, 2)`
     /// @return the live mutable chroma palette-use CDF for the supplied context index
     public int[] mutableChromaPaletteCdf(int paletteContext) {
-        return chromaPaletteCdfs[Objects.checkIndex(paletteContext, chromaPaletteCdfs.length)];
+        return chromaPaletteCdfs[ApiCompat.checkIndex(paletteContext, chromaPaletteCdfs.length)];
     }
 
     /// Returns the live mutable palette color-map CDF for the supplied plane, palette size, and context.
@@ -2148,9 +2149,9 @@ public final class CdfContext {
     /// @param context the zero-based color-map context in `[0, 5)`
     /// @return the live mutable palette color-map CDF for the supplied inputs
     public int[] mutableColorMapCdf(int plane, int paletteSizeIndex, int context) {
-        int[][][] planeTable = colorMapCdfs[Objects.checkIndex(plane, colorMapCdfs.length)];
-        int[][] sizeTable = planeTable[Objects.checkIndex(paletteSizeIndex, planeTable.length)];
-        return sizeTable[Objects.checkIndex(context, sizeTable.length)];
+        int[][][] planeTable = colorMapCdfs[ApiCompat.checkIndex(plane, colorMapCdfs.length)];
+        int[][] sizeTable = planeTable[ApiCompat.checkIndex(paletteSizeIndex, planeTable.length)];
+        return sizeTable[ApiCompat.checkIndex(context, sizeTable.length)];
     }
 
     /// Returns the live mutable segmentation-prediction CDF for the supplied context index.
@@ -2158,7 +2159,7 @@ public final class CdfContext {
     /// @param context the zero-based segmentation-prediction context index in `[0, 3)`
     /// @return the live mutable segmentation-prediction CDF for the supplied context index
     public int[] mutableSegmentPredictionCdf(int context) {
-        return segmentPredictionCdfs[Objects.checkIndex(context, segmentPredictionCdfs.length)];
+        return segmentPredictionCdfs[ApiCompat.checkIndex(context, segmentPredictionCdfs.length)];
     }
 
     /// Returns the live mutable segment-id CDF for the supplied segment context.
@@ -2166,7 +2167,7 @@ public final class CdfContext {
     /// @param context the zero-based segment-id context index in `[0, 3)`
     /// @return the live mutable segment-id CDF for the supplied segment context
     public int[] mutableSegmentIdCdf(int context) {
-        return segmentIdCdfs[Objects.checkIndex(context, segmentIdCdfs.length)];
+        return segmentIdCdfs[ApiCompat.checkIndex(context, segmentIdCdfs.length)];
     }
 
     /// Returns the live mutable directional angle-delta CDF for the supplied directional mode index.
@@ -2174,7 +2175,7 @@ public final class CdfContext {
     /// @param directionalModeIndex the zero-based directional-mode index in `[0, 8)`
     /// @return the live mutable directional angle-delta CDF for the supplied directional mode index
     public int[] mutableAngleDeltaCdf(int directionalModeIndex) {
-        return angleDeltaCdfs[Objects.checkIndex(directionalModeIndex, angleDeltaCdfs.length)];
+        return angleDeltaCdfs[ApiCompat.checkIndex(directionalModeIndex, angleDeltaCdfs.length)];
     }
 
     /// Returns the live mutable CFL-sign CDF.
@@ -2189,7 +2190,7 @@ public final class CdfContext {
     /// @param context the zero-based CFL-alpha context index in `[0, 6)`
     /// @return the live mutable CFL-alpha CDF for the supplied sign context
     public int[] mutableCflAlphaCdf(int context) {
-        return cflAlphaCdfs[Objects.checkIndex(context, cflAlphaCdfs.length)];
+        return cflAlphaCdfs[ApiCompat.checkIndex(context, cflAlphaCdfs.length)];
     }
 
     /// Converts raw `dav1d` CDF thresholds into inverse-ordered AV1 CDF arrays with a zero count slot.

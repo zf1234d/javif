@@ -10,12 +10,9 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SeekableByteChannel;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 
 /// Provides bounded positional reads over seekable or progressive AVIF input.
@@ -63,25 +60,6 @@ public abstract sealed class AvifDataSource implements Closeable {
                 checkedBuffer.remaining(),
                 1
         );
-    }
-
-    /// Opens a persistent file as an owned seekable source.
-    ///
-    /// @param path the file to open
-    /// @return the seekable file source
-    /// @throws IOException if the file cannot be opened or its size cannot be queried
-    public static AvifDataSource open(Path path) throws IOException {
-        FileChannel channel = FileChannel.open(Objects.requireNonNull(path, "path"), StandardOpenOption.READ);
-        try {
-            return new SeekableSource(channel, channel.size(), READ_CACHE_SIZE);
-        } catch (IOException | RuntimeException | Error exception) {
-            try {
-                channel.close();
-            } catch (IOException closeException) {
-                exception.addSuppressed(closeException);
-            }
-            throw exception;
-        }
     }
 
     /// Creates a progressive source that borrows a readable channel.
@@ -156,7 +134,7 @@ public abstract sealed class AvifDataSource implements Closeable {
         return new AvifDecodeException(
                 AvifErrorCode.SEEKABLE_SOURCE_REQUIRED,
                 "AVIF input requires backward access at byte offset " + position
-                        + "; use Path, byte[], or ByteBuffer input",
+                        + "; use byte[] or ByteBuffer input",
                 position
         );
     }

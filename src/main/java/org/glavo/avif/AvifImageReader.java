@@ -16,6 +16,7 @@ import org.glavo.avif.internal.bmff.AvifImageSource;
 import org.glavo.avif.internal.bmff.AvifPayload;
 import org.glavo.avif.internal.bmff.SampleTransform;
 import org.glavo.avif.internal.io.AvifDataSource;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -27,7 +28,6 @@ import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -150,19 +150,6 @@ public final class AvifImageReader implements AutoCloseable {
     /// @throws IllegalArgumentException if the channel is selectable and configured as
     ///                                  non-blocking
     public static AvifImageReader open(ReadableByteChannel source) throws IOException {
-        return AvifImageReaderFactory.DEFAULT.open(source);
-    }
-
-    /// Opens an AVIF image reader over a file path.
-    ///
-    /// This method is equivalent to `AvifImageReaderFactory.DEFAULT.open(source)`.
-    /// The returned reader owns an open read-only file handle; the file must not be modified until
-    /// the reader is closed.
-    ///
-    /// @param source the source file path
-    /// @return a new AVIF image reader
-    /// @throws IOException if the source cannot be read or decoded
-    public static AvifImageReader open(Path source) throws IOException {
         return AvifImageReaderFactory.DEFAULT.open(source);
     }
 
@@ -1453,7 +1440,7 @@ public final class AvifImageReader implements AutoCloseable {
         while (true) {
             AvifFrame frame = readFrame();
             if (frame == null) {
-                return List.copyOf(frames);
+                return ApiCompat.listCopyOf(frames);
             }
             frames.add(frame);
         }
@@ -1554,7 +1541,7 @@ public final class AvifImageReader implements AutoCloseable {
         if (!source.isSeekable()) {
             throw new AvifDecodeException(
                     AvifErrorCode.SEEKABLE_SOURCE_REQUIRED,
-                    operation + " requires Path, byte[], or ByteBuffer input",
+                    operation + " requires byte[] or ByteBuffer input",
                     null
             );
         }

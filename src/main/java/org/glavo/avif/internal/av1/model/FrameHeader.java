@@ -3,6 +3,7 @@
 package org.glavo.avif.internal.av1.model;
 
 import org.glavo.avif.av1.Av1FrameType;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -731,7 +732,7 @@ public final class FrameHeader {
     /// @param referenceFrame the zero-based reference position in `[0, 7)`
     /// @return the decoded global-motion parameters for the supplied reference
     public GlobalMotionParams globalMotion(int referenceFrame) {
-        return globalMotionParameters[Objects.checkIndex(referenceFrame, globalMotionParameters.length)];
+        return globalMotionParameters[ApiCompat.checkIndex(referenceFrame, globalMotionParameters.length)];
     }
 
     /// Returns this header with the supplied global-motion parameters.
@@ -857,7 +858,7 @@ public final class FrameHeader {
         /// @param index the zero-based matrix index in `[0, 6)`
         /// @return the requested fixed-point matrix entry
         public int matrix(int index) {
-            return matrix[Objects.checkIndex(index, matrix.length)];
+            return matrix[ApiCompat.checkIndex(index, matrix.length)];
         }
     }
 
@@ -1124,7 +1125,7 @@ public final class FrameHeader {
         /// @param boundaryIndex the boundary index in `[0, columns()]`
         /// @return the selected tile-column boundary
         public int columnStartSuperblock(int boundaryIndex) {
-            return columnStartSuperblocks[Objects.checkIndex(boundaryIndex, columnStartSuperblocks.length)];
+            return columnStartSuperblocks[ApiCompat.checkIndex(boundaryIndex, columnStartSuperblocks.length)];
         }
 
         /// Returns one tile-row boundary in superblock coordinates.
@@ -1132,7 +1133,7 @@ public final class FrameHeader {
         /// @param boundaryIndex the boundary index in `[0, rows()]`
         /// @return the selected tile-row boundary
         public int rowStartSuperblock(int boundaryIndex) {
-            return rowStartSuperblocks[Objects.checkIndex(boundaryIndex, rowStartSuperblocks.length)];
+            return rowStartSuperblocks[ApiCompat.checkIndex(boundaryIndex, rowStartSuperblocks.length)];
         }
 
         /// Returns the tile group update index.

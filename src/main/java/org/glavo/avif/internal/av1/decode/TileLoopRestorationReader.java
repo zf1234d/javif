@@ -5,6 +5,7 @@ package org.glavo.avif.internal.av1.decode;
 import org.glavo.avif.Av1ChromaFormat;
 import org.glavo.avif.internal.av1.model.BlockPosition;
 import org.glavo.avif.internal.av1.model.FrameHeader;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -194,7 +195,7 @@ final class TileLoopRestorationReader {
     /// @param set the self-guided parameter set
     /// @return one decoded self-guided restoration unit
     private RestorationUnit readSelfGuidedUnit(int plane, int set) {
-        int checkedSet = Objects.checkIndex(set, SELF_GUIDED_PARAMS.length);
+        int checkedSet = ApiCompat.checkIndex(set, SELF_GUIDED_PARAMS.length);
         int[] coefficients = referenceSelfGuidedProjectionCoefficients[plane];
         for (int coefficient = 0; coefficient < 2; coefficient++) {
             int radius = SELF_GUIDED_PARAMS[checkedSet][coefficient * 2];

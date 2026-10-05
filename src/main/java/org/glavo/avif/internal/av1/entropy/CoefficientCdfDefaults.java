@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.entropy;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -4005,7 +4006,7 @@ final class CoefficientCdfDefaults {
     /// @param baseQIndex the base quantizer index in `[0, 256)`
     /// @return the coefficient qcat band in `[0, 4)`
     static int qcatForBaseQIndex(int baseQIndex) {
-        int checkedBaseQIndex = Objects.checkIndex(baseQIndex, 256);
+        int checkedBaseQIndex = ApiCompat.checkIndex(baseQIndex, 256);
         return (checkedBaseQIndex > 20 ? 1 : 0)
                 + (checkedBaseQIndex > 60 ? 1 : 0)
                 + (checkedBaseQIndex > 120 ? 1 : 0);
@@ -4064,7 +4065,7 @@ final class CoefficientCdfDefaults {
     /// @param qcat the coefficient qcat band to validate
     /// @return the validated coefficient qcat band
     private static int checkQcat(int qcat) {
-        return Objects.checkIndex(qcat, QCAT_COUNT);
+        return ApiCompat.checkIndex(qcat, QCAT_COUNT);
     }
 
     /// Converts raw `dav1d` CDF thresholds into inverse-ordered AV1 CDF arrays with a zero count slot.

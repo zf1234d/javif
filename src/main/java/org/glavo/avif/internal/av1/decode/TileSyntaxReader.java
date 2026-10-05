@@ -18,6 +18,7 @@ import org.glavo.avif.internal.av1.model.SingleInterPredictionMode;
 import org.glavo.avif.internal.av1.model.TransformSize;
 import org.glavo.avif.internal.av1.model.TransformType;
 import org.glavo.avif.internal.av1.model.UvIntraPredictionMode;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -733,7 +734,7 @@ public final class TileSyntaxReader {
     /// @param reference the previous reference coefficient for this plane, pass, and coefficient
     /// @return one decoded Wiener coefficient
     public int readWienerCoefficient(int coefficientIndex, int reference) {
-        int index = Objects.checkIndex(coefficientIndex, WIENER_TAPS_MIN.length);
+        int index = ApiCompat.checkIndex(coefficientIndex, WIENER_TAPS_MIN.length);
         return readSignedSubexpWithReference(
                 WIENER_TAPS_MIN[index],
                 WIENER_TAPS_MAX[index],
@@ -748,7 +749,7 @@ public final class TileSyntaxReader {
     /// @param reference the previous reference coefficient for this plane and coefficient
     /// @return one decoded self-guided projection coefficient
     public int readSelfGuidedProjectionCoefficient(int coefficientIndex, int reference) {
-        int index = Objects.checkIndex(coefficientIndex, SELF_GUIDED_PROJECTION_MIN.length);
+        int index = ApiCompat.checkIndex(coefficientIndex, SELF_GUIDED_PROJECTION_MIN.length);
         return readSignedSubexpWithReference(
                 SELF_GUIDED_PROJECTION_MIN[index],
                 SELF_GUIDED_PROJECTION_MAX[index],

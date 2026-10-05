@@ -7,13 +7,13 @@ import org.glavo.avif.internal.av1.model.FrameHeader;
 import org.glavo.avif.internal.av1.image.PaddedPlane;
 import org.glavo.avif.internal.av1.image.DecodedSurface;
 import org.glavo.avif.av1.Av1ColorConfig;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
@@ -944,9 +944,9 @@ public final class FilmGrainSynthesizer {
     ///
     /// @return the decoded AV1 Gaussian sequence
     private static int @Unmodifiable [] decodeGaussianSequence() {
-        byte[] compressed = Base64.getMimeDecoder().decode(GAUSSIAN_SEQUENCE_GZIP_BASE64);
+        byte[] compressed = ApiCompat.base64MimeDecode(GAUSSIAN_SEQUENCE_GZIP_BASE64);
         try (GZIPInputStream input = new GZIPInputStream(new ByteArrayInputStream(compressed))) {
-            byte[] bytes = input.readAllBytes();
+            byte[] bytes = ApiCompat.readAllBytes(input);
             if (bytes.length != 4096) {
                 throw new IllegalStateException("Decoded Gaussian sequence has length " + bytes.length + ", expected 4096");
             }

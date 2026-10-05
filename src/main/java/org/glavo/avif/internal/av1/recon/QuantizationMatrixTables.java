@@ -3,6 +3,7 @@
 package org.glavo.avif.internal.av1.recon;
 
 import org.glavo.avif.internal.av1.model.TransformSize;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -10,7 +11,6 @@ import org.jetbrains.annotations.Unmodifiable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
@@ -156,12 +156,12 @@ final class QuantizationMatrixTables {
     ///
     /// @return the uncompressed base table bytes
     private static byte[] decodeBaseTables() {
-        byte[] compressed = Base64.getMimeDecoder().decode(BASE_TABLES_GZIP_BASE64);
+        byte[] compressed = ApiCompat.base64MimeDecode(BASE_TABLES_GZIP_BASE64);
         try (GZIPInputStream input = new GZIPInputStream(new ByteArrayInputStream(compressed));
              ByteArrayOutputStream output = new ByteArrayOutputStream(
                      BASE_32X16_BYTE_COUNT + BASE_32X32_TRIANGULAR_BYTE_COUNT
              )) {
-            input.transferTo(output);
+            ApiCompat.transferTo(input, output);
             byte[] baseTables = output.toByteArray();
             int expectedLength = BASE_32X16_BYTE_COUNT + BASE_32X32_TRIANGULAR_BYTE_COUNT;
             if (baseTables.length != expectedLength) {

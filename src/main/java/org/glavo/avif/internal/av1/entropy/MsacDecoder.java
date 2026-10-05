@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.entropy;
 
+import org.glavo.avif.internal.compat.ApiCompat;
+
 import org.glavo.avif.internal.av1.model.TileBitstream;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
@@ -98,7 +100,7 @@ public final class MsacDecoder {
         long localDifference = difference;
         int value = ((localRange >>> 8) << 7) + MINIMUM_PROBABILITY;
         long split = ((long) value) << (WINDOW_SIZE - 16);
-        boolean upperPartition = Long.compareUnsigned(localDifference, split) >= 0;
+        boolean upperPartition = ApiCompat.compareUnsigned(localDifference, split) >= 0;
         localDifference -= upperPartition ? split : 0L;
         value += upperPartition ? (localRange - (value << 1)) : 0;
         normalize(localDifference, value);
@@ -119,7 +121,7 @@ public final class MsacDecoder {
         int value = ((localRange >>> 8) * (probability >>> PROBABILITY_SHIFT) >>> (7 - PROBABILITY_SHIFT))
                 + MINIMUM_PROBABILITY;
         long split = ((long) value) << (WINDOW_SIZE - 16);
-        boolean upperPartition = Long.compareUnsigned(localDifference, split) >= 0;
+        boolean upperPartition = ApiCompat.compareUnsigned(localDifference, split) >= 0;
         localDifference -= upperPartition ? split : 0L;
         value += upperPartition ? (localRange - (value << 1)) : 0;
         normalize(localDifference, value);
@@ -328,7 +330,7 @@ public final class MsacDecoder {
         difference = localDifference << shift;
         range = localRange << shift;
         count = localCount - shift;
-        if (Integer.compareUnsigned(localCount, shift) < 0) {
+        if (ApiCompat.compareUnsigned(localCount, shift) < 0) {
             refill();
         }
     }

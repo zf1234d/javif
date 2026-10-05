@@ -3,6 +3,7 @@
 package org.glavo.avif.internal.av1.decode;
 
 import org.glavo.avif.internal.av1.model.FrameHeader;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 
 import java.util.Objects;
@@ -205,8 +206,8 @@ public final class RestorationUnit {
     /// @param coefficient the coefficient index in `[0, 3)`
     /// @return the selected Wiener coefficient
     public int wienerCoefficient(int pass, int coefficient) {
-        Objects.checkIndex(coefficient, 3);
-        return switch (Objects.checkIndex(pass, 2)) {
+        ApiCompat.checkIndex(coefficient, 3);
+        return switch (ApiCompat.checkIndex(pass, 2)) {
             case 0 -> switch (coefficient) {
                 case 0 -> horizontalWienerCoefficient0;
                 case 1 -> horizontalWienerCoefficient1;
@@ -235,7 +236,7 @@ public final class RestorationUnit {
     /// @param index the coefficient index in `[0, 2)`
     /// @return the selected projection coefficient
     public int selfGuidedProjectionCoefficient(int index) {
-        return switch (Objects.checkIndex(index, 2)) {
+        return switch (ApiCompat.checkIndex(index, 2)) {
             case 0 -> selfGuidedProjectionCoefficient0;
             case 1 -> selfGuidedProjectionCoefficient1;
             default -> throw new AssertionError();

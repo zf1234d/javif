@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,35 +83,6 @@ public final class AvifImage {
     /// @throws IOException if the input exceeds the configured limit, is not a supported AVIF
     ///                     container, or cannot be decoded
     public static AvifImage read(ByteBuffer source, AvifImageReaderFactory factory) throws IOException {
-        Objects.requireNonNull(source, "source");
-        Objects.requireNonNull(factory, "factory");
-        try (AvifImageReader reader = factory.open(source)) {
-            return collect(reader);
-        }
-    }
-
-    /// Reads and fully decodes an AVIF file using the default reader factory.
-    ///
-    /// The file handle is closed before this method returns. The returned image does not retain
-    /// the path or any open file resource.
-    ///
-    /// @param source the AVIF file path
-    /// @return the fully decoded image
-    /// @throws IOException if the file cannot be opened, parsed, or decoded
-    public static AvifImage read(Path source) throws IOException {
-        return read(source, AvifImageReaderFactory.DEFAULT);
-    }
-
-    /// Reads and fully decodes an AVIF file using the supplied reader factory.
-    ///
-    /// The file handle is closed before this method returns. The returned image does not retain
-    /// the path or any open file resource.
-    ///
-    /// @param source the AVIF file path
-    /// @param factory the reader factory that supplies decoding options
-    /// @return the fully decoded image
-    /// @throws IOException if the file cannot be opened, parsed, or decoded
-    public static AvifImage read(Path source, AvifImageReaderFactory factory) throws IOException {
         Objects.requireNonNull(source, "source");
         Objects.requireNonNull(factory, "factory");
         try (AvifImageReader reader = factory.open(source)) {
@@ -196,7 +167,7 @@ public final class AvifImage {
     /// @throws IllegalArgumentException if the decoded frame count differs from the metadata
     private AvifImage(AvifImageInfo info, @Unmodifiable List<AvifFrame> frames) {
         this.info = Objects.requireNonNull(info, "info");
-        this.frames = List.copyOf(frames);
+        this.frames = ApiCompat.listCopyOf(frames);
         if (this.frames.size() != info.frameCount()) {
             throw new IllegalArgumentException(
                     "Decoded frame count does not match image metadata: "

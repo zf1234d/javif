@@ -5,6 +5,7 @@ package org.glavo.avif.internal.av1.decode;
 import org.glavo.avif.Av1ChromaFormat;
 import org.glavo.avif.internal.av1.model.FrameAssembly;
 import org.glavo.avif.internal.av1.model.FrameHeader;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -113,7 +114,7 @@ public final class RestorationUnitMap {
     /// @param plane the plane index
     /// @return the unit column count for one plane
     public int columns(int plane) {
-        return columnsByPlane[Objects.checkIndex(plane, columnsByPlane.length)];
+        return columnsByPlane[ApiCompat.checkIndex(plane, columnsByPlane.length)];
     }
 
     /// Returns the unit row count for one plane.
@@ -121,7 +122,7 @@ public final class RestorationUnitMap {
     /// @param plane the plane index
     /// @return the unit row count for one plane
     public int rows(int plane) {
-        return rowsByPlane[Objects.checkIndex(plane, rowsByPlane.length)];
+        return rowsByPlane[ApiCompat.checkIndex(plane, rowsByPlane.length)];
     }
 
     /// Returns one decoded restoration unit.
@@ -131,7 +132,7 @@ public final class RestorationUnitMap {
     /// @param column the restoration-unit column
     /// @return one decoded restoration unit, or `null` when not decoded
     public @Nullable RestorationUnit unit(int plane, int row, int column) {
-        return unitsByPlane[Objects.checkIndex(plane, unitsByPlane.length)][index(plane, row, column)];
+        return unitsByPlane[ApiCompat.checkIndex(plane, unitsByPlane.length)][index(plane, row, column)];
     }
 
     /// Stores one decoded restoration unit.
@@ -141,7 +142,7 @@ public final class RestorationUnitMap {
     /// @param column the restoration-unit column
     /// @param unit the decoded restoration unit
     public void setUnit(int plane, int row, int column, RestorationUnit unit) {
-        unitsByPlane[Objects.checkIndex(plane, unitsByPlane.length)][index(plane, row, column)] =
+        unitsByPlane[ApiCompat.checkIndex(plane, unitsByPlane.length)][index(plane, row, column)] =
                 Objects.requireNonNull(unit, "unit");
     }
 

@@ -32,6 +32,7 @@ import org.glavo.avif.internal.av1.recon.InvalidFrameReconstructionException;
 import org.glavo.avif.internal.av1.recon.LargeScaleTileOutputBuilder;
 import org.glavo.avif.internal.av1.recon.ReferenceSurfaceSnapshot;
 import org.glavo.avif.internal.io.BufferedInput;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -415,7 +416,7 @@ public final class Av1Decoder implements AutoCloseable {
         while (true) {
             Av1DecodedFrame frame = readFrame();
             if (frame == null) {
-                return List.copyOf(frames);
+                return ApiCompat.listCopyOf(frames);
             }
             frames.add(frame);
         }

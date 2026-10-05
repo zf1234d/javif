@@ -16,6 +16,7 @@ import org.glavo.avif.AvifSequenceInfo;
 import org.glavo.avif.Av1ChromaFormat;
 import org.glavo.avif.AvifSignedFraction;
 import org.glavo.avif.AvifUnsignedFraction;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.glavo.avif.internal.io.AvifDataSource;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
@@ -809,7 +810,7 @@ public final class AvifContainerParser {
 
         assert representativeAv1C != null;
 
-        AvifPayload[] payloads = cellPayloads.toArray(AvifPayload[]::new);
+        AvifPayload[] payloads = cellPayloads.toArray(new AvifPayload[0]);
         return new GridPayloads(
                 rows,
                 columns,
@@ -1232,7 +1233,7 @@ public final class AvifContainerParser {
                 result.add(opaqueProperty.toOpaqueItemProperty());
             }
         }
-        return result.toArray(AvifOpaqueItemProperty[]::new);
+        return result.toArray(new AvifOpaqueItemProperty[0]);
     }
 
     /// Reads and normalizes an Exif metadata item.
@@ -1811,8 +1812,8 @@ public final class AvifContainerParser {
         if (!"nclx".equals(colourType)) {
             reserveMetadataBytes((long) input.remaining() + 4L, input.offset() - 4, "opaque colr property");
             ByteArrayOutputStream payload = new ByteArrayOutputStream();
-            payload.writeBytes(colourType.getBytes(StandardCharsets.ISO_8859_1));
-            payload.writeBytes(input.readBytes(input.remaining()));
+            ApiCompat.writeBytes(payload, colourType.getBytes(StandardCharsets.ISO_8859_1));
+            ApiCompat.writeBytes(payload, input.readBytes(input.remaining()));
             return new OpaqueProperty("colr", null, payload.toByteArray());
         }
         int colorPrimaries = input.readU16();
@@ -1846,7 +1847,7 @@ public final class AvifContainerParser {
             }
             output.write(value);
         }
-        return new AuxiliaryType(output.toString(java.nio.charset.StandardCharsets.ISO_8859_1));
+        return new AuxiliaryType(ApiCompat.toString(output, java.nio.charset.StandardCharsets.ISO_8859_1));
     }
 
     /// Parses a `pixi` property.
@@ -2022,7 +2023,7 @@ public final class AvifContainerParser {
                         repetitionCount,
                         colorPayloads.frameDeltas
                 ))
-                .withAuxiliaryImages(meta.moovAuxiliaryTypes.toArray(String[]::new), null)
+                .withAuxiliaryImages(meta.moovAuxiliaryTypes.toArray(new String[0]), null)
                 .withAlpha(alphaPayloads != null, sequenceAlphaPremultiplied())
                 .withColorInfo(s.colr)
                 .withIccProfile(s.iccProfile);
@@ -3193,7 +3194,7 @@ public final class AvifContainerParser {
                 }
             }
         }
-        return images.toArray(AvifAuxiliaryImageInfo[]::new);
+        return images.toArray(new AvifAuxiliaryImageInfo[0]);
     }
 
     /// Creates a public auxiliary image descriptor from one parsed item.
@@ -4247,7 +4248,7 @@ public final class AvifContainerParser {
             ByteArrayOutputStream obu = new ByteArrayOutputStream();
             obu.write((1 << 3) | (1 << 1));
             writeLeb128(obu, payload.length);
-            obu.writeBytes(payload);
+            ApiCompat.writeBytes(obu, payload);
             return obu.toByteArray();
         }
 
@@ -4316,7 +4317,7 @@ public final class AvifContainerParser {
         while (input.hasRemaining()) {
             int value = input.readU8();
             if (value == 0) {
-                return output.toString(StandardCharsets.UTF_8);
+                return ApiCompat.toString(output, StandardCharsets.UTF_8);
             }
             output.write(value);
         }

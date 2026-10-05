@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.bmff;
 
+import org.glavo.avif.internal.compat.ApiCompat;
+
 import org.glavo.avif.AvifDecodeException;
 import org.glavo.avif.AvifErrorCode;
 import org.glavo.avif.internal.io.AvifDataSource;
@@ -89,7 +91,7 @@ public final class BoxInput {
     /// @throws AvifDecodeException if the input is truncated
     public int readU8() throws AvifDecodeException {
         ensureAvailable(1);
-        return Byte.toUnsignedInt(readSourceByte(offset++));
+        return ApiCompat.toUnsignedInt(readSourceByte(offset++));
     }
 
     /// Reads one signed 8-bit integer.
@@ -106,8 +108,8 @@ public final class BoxInput {
     /// @throws AvifDecodeException if the input is truncated
     public int readU16() throws AvifDecodeException {
         ensureAvailable(2);
-        int value = (Byte.toUnsignedInt(readSourceByte(offset)) << 8)
-                | Byte.toUnsignedInt(readSourceByte(offset + 1));
+        int value = (ApiCompat.toUnsignedInt(readSourceByte(offset)) << 8)
+                | ApiCompat.toUnsignedInt(readSourceByte(offset + 1));
         offset += 2;
         return value;
     }
@@ -126,9 +128,9 @@ public final class BoxInput {
     /// @throws AvifDecodeException if the input is truncated
     public int readU24() throws AvifDecodeException {
         ensureAvailable(3);
-        int value = (Byte.toUnsignedInt(readSourceByte(offset)) << 16)
-                | (Byte.toUnsignedInt(readSourceByte(offset + 1)) << 8)
-                | Byte.toUnsignedInt(readSourceByte(offset + 2));
+        int value = (ApiCompat.toUnsignedInt(readSourceByte(offset)) << 16)
+                | (ApiCompat.toUnsignedInt(readSourceByte(offset + 1)) << 8)
+                | ApiCompat.toUnsignedInt(readSourceByte(offset + 2));
         offset += 3;
         return value;
     }
@@ -139,10 +141,10 @@ public final class BoxInput {
     /// @throws AvifDecodeException if the input is truncated
     public long readU32() throws AvifDecodeException {
         ensureAvailable(4);
-        long value = ((long) Byte.toUnsignedInt(readSourceByte(offset)) << 24)
-                | ((long) Byte.toUnsignedInt(readSourceByte(offset + 1)) << 16)
-                | ((long) Byte.toUnsignedInt(readSourceByte(offset + 2)) << 8)
-                | Byte.toUnsignedInt(readSourceByte(offset + 3));
+        long value = ((long) ApiCompat.toUnsignedInt(readSourceByte(offset)) << 24)
+                | ((long) ApiCompat.toUnsignedInt(readSourceByte(offset + 1)) << 16)
+                | ((long) ApiCompat.toUnsignedInt(readSourceByte(offset + 2)) << 8)
+                | ApiCompat.toUnsignedInt(readSourceByte(offset + 3));
         offset += 4;
         return value;
     }

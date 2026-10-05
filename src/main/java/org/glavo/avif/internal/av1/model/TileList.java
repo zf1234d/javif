@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.av1.model;
 
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -27,7 +28,7 @@ public record TileList(
         if (outputTileRows <= 0 || outputTileRows > 256) {
             throw new IllegalArgumentException("outputTileRows out of range: " + outputTileRows);
         }
-        entries = List.copyOf(Objects.requireNonNull(entries, "entries"));
+        entries = ApiCompat.listCopyOf(Objects.requireNonNull(entries, "entries"));
         if (entries.isEmpty() || entries.size() > (long) outputTileColumns * outputTileRows) {
             throw new IllegalArgumentException("Tile-list entry count exceeds its output tile grid");
         }

@@ -11,6 +11,7 @@ import org.glavo.avif.internal.av1.model.FrameHeader;
 import org.glavo.avif.internal.av1.model.InterMotionVector;
 import org.glavo.avif.internal.av1.model.SequenceHeader;
 import org.glavo.avif.internal.av1.model.TileBitstream;
+import org.glavo.avif.internal.compat.ApiCompat;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 
@@ -791,7 +792,7 @@ public final class TileDecodeContext {
         /// @param index the zero-based delta-lf runtime slot index in `[0, 4)`
         /// @return the current delta-lf value for the supplied runtime slot
         public int currentDeltaLfValue(int index) {
-            return currentDeltaLfValues[Objects.checkIndex(index, currentDeltaLfValues.length)];
+            return currentDeltaLfValues[ApiCompat.checkIndex(index, currentDeltaLfValues.length)];
         }
 
         /// Updates the current delta-lf value for one runtime slot.
@@ -799,7 +800,7 @@ public final class TileDecodeContext {
         /// @param index the zero-based delta-lf runtime slot index in `[0, 4)`
         /// @param value the replacement delta-lf value
         public void setCurrentDeltaLfValue(int index, int value) {
-            currentDeltaLfValues[Objects.checkIndex(index, currentDeltaLfValues.length)] = value;
+            currentDeltaLfValues[ApiCompat.checkIndex(index, currentDeltaLfValues.length)] = value;
         }
 
         /// Returns the live delta-lf runtime slots for immediate package-local inspection.
@@ -832,7 +833,7 @@ public final class TileDecodeContext {
         /// @param index the zero-based quadrant index in `[0, 4)`
         /// @return the current cached CDEF index for one superblock quadrant, or `-1`
         public int cdefIndex(int index) {
-            return cdefIndices[Objects.checkIndex(index, cdefIndices.length)];
+            return cdefIndices[ApiCompat.checkIndex(index, cdefIndices.length)];
         }
 
         /// Updates the cached CDEF index for one superblock quadrant.
@@ -840,7 +841,7 @@ public final class TileDecodeContext {
         /// @param index the zero-based quadrant index in `[0, 4)`
         /// @param value the replacement cached CDEF index, or `-1`
         public void setCdefIndex(int index, int value) {
-            cdefIndices[Objects.checkIndex(index, cdefIndices.length)] = value;
+            cdefIndices[ApiCompat.checkIndex(index, cdefIndices.length)] = value;
         }
     }
 }

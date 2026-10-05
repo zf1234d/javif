@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.io;
 
+import org.glavo.avif.internal.compat.ApiCompat;
+
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -228,7 +230,7 @@ public abstract class BufferedInput implements ReadableByteChannel {
     /// @return the next byte widened to `int`
     /// @throws IOException if the source is truncated, closed, or unreadable
     public int readUnsignedByte() throws IOException {
-        return Byte.toUnsignedInt(readByte());
+        return ApiCompat.toUnsignedInt(readByte());
     }
 
     /// Reads a signed 16-bit little-endian integer.
@@ -245,7 +247,7 @@ public abstract class BufferedInput implements ReadableByteChannel {
     /// @return the next unsigned short widened to `int`
     /// @throws IOException if the source is truncated, closed, or unreadable
     public int readUnsignedShortLE() throws IOException {
-        return Short.toUnsignedInt(readShortLE());
+        return ApiCompat.toUnsignedInt(readShortLE());
     }
 
     /// Reads an unsigned 24-bit little-endian integer.
@@ -254,9 +256,9 @@ public abstract class BufferedInput implements ReadableByteChannel {
     /// @throws IOException if the source is truncated, closed, or unreadable
     public int readUnsignedInt24LE() throws IOException {
         ensureBufferRemaining(3);
-        return Byte.toUnsignedInt(buffer.get())
-                | (Byte.toUnsignedInt(buffer.get()) << 8)
-                | (Byte.toUnsignedInt(buffer.get()) << 16);
+        return ApiCompat.toUnsignedInt(buffer.get())
+                | (ApiCompat.toUnsignedInt(buffer.get()) << 8)
+                | (ApiCompat.toUnsignedInt(buffer.get()) << 16);
     }
 
     /// Reads a signed 32-bit little-endian integer.
@@ -273,7 +275,7 @@ public abstract class BufferedInput implements ReadableByteChannel {
     /// @return the next unsigned int widened to `long`
     /// @throws IOException if the source is truncated, closed, or unreadable
     public long readUnsignedIntLE() throws IOException {
-        return Integer.toUnsignedLong(readIntLE());
+        return ApiCompat.toUnsignedLong(readIntLE());
     }
 
     /// Reads a signed 64-bit little-endian integer.
