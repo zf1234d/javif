@@ -1,4 +1,4 @@
-// Copyright (c) 2026 Glavo
+// Copyright (c) 2026 zf1234d
 // SPDX-License-Identifier: MPL-2.0
 package org.glavo.avif.internal.compat;
 
@@ -44,7 +44,8 @@ public final class ApiCompat {
     /// @throws IndexOutOfBoundsException if the index is outside `[0, length)`
     public static int checkIndex(int index, int length) {
         if (index < 0 || index >= length) {
-            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + length);
+            throw new IndexOutOfBoundsException(
+                    "index " + index + " is not in [0, " + length + ")");
         }
         return index;
     }
@@ -57,7 +58,8 @@ public final class ApiCompat {
     /// @throws IndexOutOfBoundsException if the index is outside `[0, length)`
     public static long checkIndex(long index, long length) {
         if (index < 0 || index >= length) {
-            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + length);
+            throw new IndexOutOfBoundsException(
+                    "index " + index + " is not in [0, " + length + ")");
         }
         return index;
     }
@@ -70,9 +72,9 @@ public final class ApiCompat {
     /// @return `fromIndex`
     /// @throws IndexOutOfBoundsException if the range is outside `[0, length)`
     public static int checkFromIndexSize(int fromIndex, int size, int length) {
-        if ((length | fromIndex | size) < 0 || size > length - fromIndex) {
+        if (fromIndex < 0 || size < 0 || fromIndex > length - size) {
             throw new IndexOutOfBoundsException(
-                    "Range [" + fromIndex + ", " + fromIndex + " + " + size + ") out of bounds for length " + length);
+                    "range [" + fromIndex + ", " + fromIndex + "+" + size + ") exceeds length " + length);
         }
         return fromIndex;
     }
@@ -116,8 +118,7 @@ public final class ApiCompat {
     /// @param right the right value
     /// @return the unsigned comparison result
     public static int compareUnsigned(int left, int right) {
-        return (left + Integer.MIN_VALUE) < (right + Integer.MIN_VALUE) ? -1
-                : (left + Integer.MIN_VALUE) == (right + Integer.MIN_VALUE) ? 0 : 1;
+        return Long.compare(left & 0xFFFF_FFFFL, right & 0xFFFF_FFFFL);
     }
 
     /// Backport of `java.lang.Long.compareUnsigned(long, long)`.
@@ -126,8 +127,7 @@ public final class ApiCompat {
     /// @param right the right value
     /// @return the unsigned comparison result
     public static int compareUnsigned(long left, long right) {
-        return (left + Long.MIN_VALUE) < (right + Long.MIN_VALUE) ? -1
-                : (left + Long.MIN_VALUE) == (right + Long.MIN_VALUE) ? 0 : 1;
+        return Long.compare(left ^ Long.MIN_VALUE, right ^ Long.MIN_VALUE);
     }
 
     /// Backport of `java.util.Base64.getMimeDecoder().decode(String)`.
